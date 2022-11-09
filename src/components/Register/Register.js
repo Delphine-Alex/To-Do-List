@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
+
 const Register = () => {
     const [register, setRegister] = useState("");
+    const navigate = useNavigate();
 
     const submitRegister = async (e) => {
         e.preventDefault();
@@ -13,6 +16,7 @@ const Register = () => {
         try {
             const result = await axios.post(url, register);
             console.log('result', result);
+            navigate('/authentication');
         } catch (error) {
             console.log(error)
         }

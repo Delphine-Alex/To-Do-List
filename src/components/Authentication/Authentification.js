@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Authentication = () => {
+const Authentification = () => {
     return (
         <div>
             <h1>Hello world!</h1>
@@ -8,4 +8,4 @@ const Authentication = () => {
     );
 }
 
-export default Authentication;
+export default Authentification;

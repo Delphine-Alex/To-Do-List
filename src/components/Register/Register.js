@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [register, setRegister] = useState("");
@@ -9,8 +9,6 @@ const Register = () => {
 
     const submitRegister = async (e) => {
         e.preventDefault();
-
-        console.log('register', register);
 
         const url = "https://api-nodejs-todolist.herokuapp.com/user/register";
         try {
@@ -59,6 +57,8 @@ const Register = () => {
                 />
                 <button type='submit'>Send</button>
             </form>
+
+            <p> Return to login <Link to={'/authentication'}>Here</Link></p>
         </div>
     );
 }

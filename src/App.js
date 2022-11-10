@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Register from './components/Register/Register';
 import Authentication from './components/Authentication/Authentication';
+import ToDoList from './components/ToDoList/ToDoList/ToDoList';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Register />} />
         <Route path='/authentication' element={<Authentication />} />
+        <Route path='/task' element={<ToDoList />} />
       </Routes>
     </BrowserRouter>
   );

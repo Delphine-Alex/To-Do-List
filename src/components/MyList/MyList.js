@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Header from '../Header/Header';
 
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
@@ -27,49 +27,76 @@ const useStyles = makeStyles(() => ({
 }));
 
 const MyList = () => {
+  const [loading, setLoading] = useState(false);
   const [lists, setLists] = useState([]);
   const [task, setTask] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
-    const getDatas = async () => {
-      const token = await localStorage.getItem('token');
-      try {
-        const result = await axios({
-          method: 'GET',
-          url: 'https://api-nodejs-todolist.herokuapp.com/task',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          }
-        });
-        setLists(result.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getDatas();
   }, []);
+
+  const getDatas = async () => {
+    const token = await localStorage.getItem('token');
+    setLoading(true);
+    axios({
+      method: 'GET',
+      url: 'https://api-nodejs-todolist.herokuapp.com/task',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(res => {
+      setLists(res.data.data);
+      setLoading(false);
+    }).catch(err => {
+      console.log(err);
+      setLoading(false);
+    });
+  };
 
   const submitTask = async (e) => {
     e.preventDefault();
     const token = await localStorage.getItem('token');
+    setLoading(true);
+    axios({
+      method: 'POST',
+      url: 'https://api-nodejs-todolist.herokuapp.com/task',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: task,
+    }).then(res => {
+      setLoading(false);
+      if (res.data.success) {
+        getDatas();
+      }
+    }).catch(err => {
+      console.log(err);
+      setLoading(false);
+    });
+  }
 
-    console.log('task', task);
-
-    try {
-      await axios({
-        method: 'POST',
-        url: 'https://api-nodejs-todolist.herokuapp.com/task',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        data: { description: task },
-      });
-    } catch (error) {
-      console.log(error)
-    }
+  const deleteTask = async (idTask) => {
+    const token = await localStorage.getItem('token');
+    setLoading(true);
+    axios({
+      method: 'DELETE',
+      url: `https://api-nodejs-todolist.herokuapp.com/task/${idTask}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(res => {
+      setLoading(false);
+      if (res.data.success) {
+        getDatas();
+      }
+    }).catch(err => {
+      console.log(err);
+      setLoading(false);
+    });
   }
 
   return (
@@ -96,6 +123,8 @@ const MyList = () => {
               onChange={(e) => setTask({ ...task, description: e.target.value })}
             />
             <Button variant="contained" type='submit' className={classes.list__button}>Send</Button>
+            {loading ? <CircularProgress /> : null}
+
           </form>
         </Box>
 
@@ -105,10 +134,11 @@ const MyList = () => {
               return (
                 <div key={list._id}>
                   <p>{list.description}</p>
+                  <button onClick={() => deleteTask(list._id)}>x</button>
                 </div>
               )
             })
-            : ''
+            : null
         }
       </Box>
 

@@ -12,8 +12,7 @@ const Register = () => {
 
         const url = "https://api-nodejs-todolist.herokuapp.com/user/register";
         try {
-            const result = await axios.post(url, register);
-            console.log('result', result);
+            await axios.post(url, register);
             navigate('/authentication');
         } catch (error) {
             console.log(error)

@@ -22,9 +22,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   profil__backbtn: {
-    // border: '1px solid var(--blue-color)',
-    // color: '#113D78'
-
+    textDecoration: 'none',
   },
   profil__title: {
     color: 'black',
@@ -107,9 +105,9 @@ const Profil = () => {
 
           <Card className={classes.profil__card}>
             <CardContent>
-              <p>{profil.name}</p>
-              <p>{profil.email}</p>
-              <p>{profil.age}</p>
+              <Typography>My name: {profil.name}</Typography>
+              <Typography>My mail: {profil.email}</Typography>
+              <Typography>My age: {profil.age}</Typography>
 
             </CardContent>
           </Card>

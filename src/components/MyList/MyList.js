@@ -154,9 +154,9 @@ const MyList = () => {
             lists ?
               lists && lists.map((list) => {
                 return (
-                  <Box className={classes.list__card}>
+                  <Box className={classes.list__card} key={list._id}>
                     <Card sx={{ minWidth: 275 }}>
-                      <CardContent key={list._id} className={classes.list__cardContent}>
+                      <CardContent className={classes.list__cardContent}>
                         <Typography>{list.description}</Typography>
                         <Button onClick={() => deleteTask(list._id)}><DeleteForeverIcon className={classes.list__deletebtn} /></Button>
                       </CardContent>

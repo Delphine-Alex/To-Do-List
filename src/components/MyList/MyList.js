@@ -3,8 +3,10 @@ import axios from 'axios';
 
 import Header from '../Header/Header';
 
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, CircularProgress, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core';
+
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const useStyles = makeStyles(() => ({
   list__container: {
@@ -22,7 +24,25 @@ const useStyles = makeStyles(() => ({
     padding: 30
   },
   list__button: {
-    height: '55px'
+    height: '55px',
+  },
+  list__cardContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  list__content: {
+    marginTop: '5%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  list__card: {
+    margin: '1%',
+  },
+  list__deletebtn: {
+    color: 'red',
   }
 }));
 
@@ -123,24 +143,32 @@ const MyList = () => {
               onChange={(e) => setTask({ ...task, description: e.target.value })}
             />
             <Button variant="contained" type='submit' className={classes.list__button}>Send</Button>
+
             {loading ? <CircularProgress /> : null}
 
           </form>
         </Box>
 
-        {
-          lists ?
-            lists && lists.map((list) => {
-              return (
-                <div key={list._id}>
-                  <p>{list.description}</p>
-                  <button onClick={() => deleteTask(list._id)}>x</button>
-                </div>
-              )
-            })
-            : null
-        }
-      </Box>
+        <Box className={classes.list__content}>
+          {
+            lists ?
+              lists && lists.map((list) => {
+                return (
+                  <Box className={classes.list__card}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent key={list._id} className={classes.list__cardContent}>
+                        <Typography>{list.description}</Typography>
+                        <Button onClick={() => deleteTask(list._id)}><DeleteForeverIcon className={classes.list__deletebtn} /></Button>
+                      </CardContent>
+                    </Card>
+                  </Box>
+                )
+              })
+              : null
+          }
+        </Box>
+
+      </Box >
 
     </Box >
   );

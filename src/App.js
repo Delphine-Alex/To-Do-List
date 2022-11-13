@@ -7,6 +7,8 @@ import MyList from './components/MyList/MyList';
 import Profil from './components/Profil/Profil';
 import Register from './components/Register/Register';
 
+import './App.css';
+
 const App = () => {
   return (
     <BrowserRouter>

@@ -5,30 +5,33 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Header from '../Header/Header';
 
-import {
-  Box, Button, Card, CardContent,
-  Divider,
-  Typography
-} from '@mui/material';
+import { Box, Button, Card, CardContent, Divider, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   profil__container: {
-    margin: '1%',
+    margin: '2%',
   },
   profil__content: {
     textAlign: 'center',
+    margin: '4%',
+  },
+  profil__containerbtn: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   profil__backbtn: {
-    border: '1px solid #113D78',
-    color: '#113D78'
+    // border: '1px solid var(--blue-color)',
+    // color: '#113D78'
+
   },
   profil__title: {
     color: 'black',
     paddingBottom: 20
   },
   profil__divider: {
-    backgroundColor: '#113D78',
+    backgroundColor: 'var(--blue-color)',
     height: "5px",
   },
   profil__card: {
@@ -88,7 +91,11 @@ const Profil = () => {
       <Header />
 
       <Box className={classes.profil__container}>
-        <Button variant="outlined" className={classes.profil__backbtn}><Link to={'/task'}>Back to My list</Link></Button>
+
+        <Box className={classes.profil__containerbtn}>
+          <Button variant="outlined" className={classes.profil__backbtn}><Link to={'/task'}>Back to My list</Link></Button>
+          <Button variant="contained" onClick={submitLogout} className={classes.profil__disconnectbtn}>Disconnect</Button>
+        </Box>
 
 
         <Box className={classes.profil__content}>
@@ -108,7 +115,7 @@ const Profil = () => {
           </Card>
         </Box>
 
-        <Button variant="contained" onClick={submitLogout} className={classes.profil__disconnectbtn}>Disconnect</Button>
+        {/* <Button variant="contained" onClick={submitLogout} className={classes.profil__disconnectbtn}>Disconnect</Button> */}
       </Box>
 
     </Box>

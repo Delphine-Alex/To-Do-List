@@ -9,11 +9,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 const useStyles = makeStyles(() => ({
+  header__bar: {
+    backgroundColor: 'var(--blue-color)',
+  },
   header__title: {
-    color: 'white',
+    color: 'var(--white-color)',
   },
   header__avatar: {
-    color: 'white',
+    color: 'var(--white-color)',
   }
 }));
 
@@ -23,11 +26,11 @@ const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.header__bar}>
           <Typography variant="h6" sx={{ flexGrow: 1 }} className={classes.header__title}>
             MY LIST
           </Typography>
-          <IconButton >
+          <IconButton>
             <Link to={'/profil'}>
               <AccountCircle className={classes.header__avatar} />
             </Link>

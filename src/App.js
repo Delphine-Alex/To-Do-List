@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Authentication from './components/Authentication/Authentication';
+import MyList from './components/MyList/MyList';
 import Profil from './components/Profil/Profil';
 import Register from './components/Register/Register';
-import ToDoList from './components/ToDoList/ToDoList';
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Register />} />
         <Route path='/authentication' element={<Authentication />} />
-        <Route path='/task' element={<ToDoList />} />
+        <Route path='/task' element={<MyList />} />
         <Route path='/profil' element={<Profil />} />
       </Routes>
     </BrowserRouter>
